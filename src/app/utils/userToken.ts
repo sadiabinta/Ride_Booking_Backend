@@ -7,8 +7,14 @@ import { User } from "../modules/user/user.model";
 import AppError from "../errorHelpers/AppError";
 
 export const createUserTokens = (user: Partial<IUser>) => {
+  if (!user._id || !user.email || !user.role) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "User object is missing required fields for JWT."
+    );
+  }
   const jwtPayload = {
-    userId: user._id,
+    userId: user._id.toString(),
     email: user.email,
     role: user.role,
   };
