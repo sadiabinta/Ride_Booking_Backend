@@ -1,25 +1,30 @@
-                                RIDE BOOKING SYSTEM
+                               # RIDE BOOKING SYSTEM
 
-Node.js, Express and MongoDB is used here for the ride booking app backend. It supports user authentication,ride request,driver management,ride status update and fare and destination calculation. For the distance calculation ---- algorithm has been used.
+Node.js, Express and MongoDB is used here for the ride booking app backend. It supports user authentication,ride request,driver management,ride status update and fare and destination calculation. For the distance calculation algorithm(haversine formula) has been used.
 
-API Endpoints
-AUTH(/api/v1/auth)
+passportjs has been used for authentication
+bcryptjs has been used for password hashing
+jsonwebtoken for access token and refresh token
+zod has been used for validation
+
+##API Endpoints
+###AUTH(/api/v1/auth)
 -login(/login)
 -refreshToken(/refresh-token)
 -logout(/logout)
 -reset password(reset-password)
 
-USERS(/api/v1/users)
+###USERS(/api/v1/users)
 -register(/register)
 -get all users(/all-users)
 
-RIDES(/api/v1/rides)
+###RIDES(/api/v1/rides)
 -request ride(/request)
 -cancel ride(/:id/cancel)
 -get all ride history(/history)
 -estimate fare(/estimate)
 
-DRIVERS(/api/v1/drivers)
+###DRIVERS(/api/v1/drivers)
 -approve driver(/approve)
 -update driver location(/updateLocation)
 -drivers availability update(/availability)
