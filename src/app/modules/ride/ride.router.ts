@@ -7,7 +7,7 @@ import { RideControllers } from "./ride.controller";
 
 const router = Router();
 
-router.get("/estimate", RideControllers.rideFareEstimate);
+router.post("/estimate", RideControllers.rideFareEstimate);
 router.get("/getAllRides", checkAuth(Role.ADMIN), RideControllers.getAllRides);
 router.patch("/changeRole", checkAuth(Role.ADMIN), RideControllers.changeRole);
 router.post(

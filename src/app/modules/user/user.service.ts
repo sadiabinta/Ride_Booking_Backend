@@ -40,6 +40,8 @@ const createUser = async (payload: Partial<IUser> & IDriver) => {
   if (user.role == Role.DRIVER) {
     const driver = await Driver.create({
       driverId: user._id,
+      name: user.name,
+      phone: user.phone,
       vehicleType: payload.vehicleType,
       licenseNumber: payload.licenseNumber,
       vehicleNumber: payload.vehicleNumber,
@@ -47,9 +49,14 @@ const createUser = async (payload: Partial<IUser> & IDriver) => {
       isOnline: false,
       earnings: 0,
     });
+    const populatedDriver = await Driver.findById(driver._id)
+      .populate("driverId", "name phone email address")
+      .lean();
+    console.log(populatedDriver);
+
     return {
-      user,
-      driver,
+      user: user.toObject(),
+      driver: populatedDriver,
     };
   }
 
@@ -102,9 +109,26 @@ const getAllUser = async () => {
     },
   };
 };
+const getMe = async (decodedToken: JwtPayload) => {
+  const user = await User.findById(decodedToken.userId);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "No user found");
+  }
+  if (user.role === "DRIVER") {
+    const driver = await Driver.findOne({ driverId: user._id });
+    return {
+      // data: { ...user, driverDetails: driver },
+      data: { user: user, driver: driver },
+    };
+  }
+  return {
+    data: { user: user },
+  };
+};
 
 export const UserService = {
   createUser,
   getAllUser,
+  getMe,
   updateUser,
 };

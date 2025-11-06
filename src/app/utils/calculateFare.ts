@@ -9,8 +9,8 @@ export const calculateFare = (distance: number) => {
   const fare = basefare + costPerKm * distance + estimatedTime * costPerMinute;
 
   return {
-    distanceKm: distance.toFixed(2),
-    estimatedTimeMin: estimatedTime.toFixed(0),
+    distance: distance.toFixed(2),
+    duration: estimatedTime.toFixed(0),
     fare: Math.max(fare, minFare).toFixed(2),
   };
 };

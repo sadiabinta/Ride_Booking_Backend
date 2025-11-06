@@ -4,6 +4,7 @@ import { Role } from "../user/user.interface";
 import { DriverControllers } from "./driver.controller";
 
 const router = Router();
+router.get("/", checkAuth(Role.ADMIN), DriverControllers.getAllDrivers);
 router.patch(
   "/approve",
   checkAuth(Role.ADMIN),
@@ -13,6 +14,11 @@ router.get(
   "/available",
   checkAuth(Role.DRIVER),
   DriverControllers.availableRequest
+);
+router.get(
+  "/available/:id",
+  checkAuth(Role.DRIVER),
+  DriverControllers.singleAvailableRequest
 );
 router.patch(
   "/:rideId/accept",

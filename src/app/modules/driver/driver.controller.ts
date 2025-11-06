@@ -18,10 +18,35 @@ const approveDriver = catchAsync(
     });
   }
 );
+const getAllDrivers = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const drivers = await DriverServices.getAllDrivers();
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Drivers are Retrieved",
+      data: drivers,
+    });
+  }
+);
 const availableRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // const verifiedToken = req.user;
     const ride = await DriverServices.availableRequest();
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Requested Ride Retrieved",
+      data: ride,
+    });
+  }
+);
+const singleAvailableRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // const verifiedToken = req.user;
+    const { id } = req.params;
+    console.log(req.params);
+    const ride = await DriverServices.singleAvailableRequest(id);
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
@@ -127,7 +152,9 @@ const updateDriverLocation = catchAsync(
 
 export const DriverControllers = {
   approveDriver,
+  getAllDrivers,
   availableRequest,
+  singleAvailableRequest,
   acceptRequest,
   pickedupRequest,
   completedRequest,

@@ -15,10 +15,23 @@ const approveDriver = async (payload: JwtPayload) => {
 
   return driver;
 };
+const getAllDrivers = async () => {
+  const drivers = await Driver.find().populate(
+    "driverId",
+    "name email address phone picture"
+  );
+
+  return drivers;
+};
 const availableRequest = async () => {
   const ride = await Ride.find({ status: "REQUESTED" })
     .populate("riderId", "name phone")
     .sort({ requestedAt: -1 });
+
+  return ride;
+};
+const singleAvailableRequest = async (id: string) => {
+  const ride = await Ride.findById(id).populate("riderId", "name phone");
 
   return ride;
 };
@@ -116,10 +129,12 @@ const updateDriverLocation = async (
 export const DriverServices = {
   approveDriver,
   availableRequest,
+  singleAvailableRequest,
   acceptRequest,
   pickedupRequest,
   completedRequest,
   earningHistory,
   updateAvailability,
   updateDriverLocation,
+  getAllDrivers,
 };

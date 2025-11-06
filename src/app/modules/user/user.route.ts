@@ -13,6 +13,7 @@ router.post(
   UserControllers.createUser
 );
 router.get("/all-users", checkAuth(Role.ADMIN), UserControllers.getAllUser);
+router.get("/me", checkAuth(...Object.values(Role)), UserControllers.getMe);
 router.patch(
   "/:id",
   checkAuth(...Object.values(Role)),

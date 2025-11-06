@@ -60,7 +60,7 @@ const requestRide = async (
     riderId,
     pickupLocation,
     destinationLocation,
-    estimatedTime: fare.estimatedTimeMin,
+    estimatedTime: fare.duration,
     fare: fare.fare,
     distance: distance,
   });

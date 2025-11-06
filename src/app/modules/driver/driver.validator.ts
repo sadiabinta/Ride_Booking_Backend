@@ -7,6 +7,9 @@ export const driverLocationZodSchema = z.object({
 export const createDriverZodSchema = z.object({
   body: z.object({
     driverId: z.string(),
+    name: z.string(),
+    email: z.email(),
+    address: z.string(),
     vehicleType: z.enum(["CAR", "CNG", "BIKE"]),
     vehicleNumber: z
       .string()
